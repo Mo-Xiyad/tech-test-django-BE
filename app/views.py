@@ -44,7 +44,7 @@ class ProductsItemViews(APIView):
         serializer = ProductModelSerializer(items, many=True)
         return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
 
-    def post(self, request):
+    def post(self, request, format=None):
         serializer = ProductModelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
