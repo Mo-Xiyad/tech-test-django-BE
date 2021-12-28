@@ -21,7 +21,7 @@ class HotListCategoryView(APIView):
     def post(self, request, format=None):
         data = self.request.data
         category = data['category']
-        queryset = HotListModel.objects.order_by('-date_created').filter(category__iexact=category)
+        queryset = HotListModel.objects.order_by('-date_created').filter(category__iexact=category) #reffers to the slug in the model
 
         serializer = HotListModelSerializer(queryset, many=True)
 
@@ -53,6 +53,6 @@ class ProductsItemViews(APIView):
             return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id=None):
-        item = get_object_or_404(ProductModel, id=id)
+        item = get_object_or_404(ProductModel, id=id) #django shortcut method 
         item.delete()
         return Response({"status": "success", "data": "Item Deleted"})
